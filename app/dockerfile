@@ -1,0 +1,7 @@
+FROM python:latest
+WORKDIR /tmp
+ADD requirements.txt requirements.txt
+RUN pip install -r requirements.txt
+COPY jga_metadata_import.py jga_metadata_import.py
+COPY . /tmp/
+CMD ["./wait-for-it.sh", "db:5432", "--","python", "-u", "jga_metadata_import.py"]
